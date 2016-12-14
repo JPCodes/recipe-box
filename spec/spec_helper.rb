@@ -21,5 +21,8 @@ RSpec.configure do |config|
     Tag.all().each do |tag|
       tag.destroy()
     end
+    Ingredients_recipes.all().each do |ingredients_recipes|
+      ingredients_recipes.destroy()
+    end
   end
 end
