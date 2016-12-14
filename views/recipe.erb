@@ -1,0 +1,53 @@
+<h1> <%= @recipe.name %> </h1>
+<h3>Instructions:</h3>
+<p>
+  <%= @recipe.instructions %>
+</p>
+
+
+<% if !@ingredients_for_recipe.nil? %>
+<ul>
+  <% @ingredients_for_recipe.each do |ingredient| %>
+    <li><%= ingredient.name %></li>
+  <% end %>
+</ul>
+<% else %>
+<p>This recipe has no ingredients</p>
+<% end %>
+
+<form action="/add_ingredient/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="new_ingredient">Add a new ingredient to the database and assign it to this recipe:</label>
+  <input type="text" name="new_ingredient" id="new_ingredient" class="form-control">
+  <label for="new_quantity_input">Quanity (Ex: 3 tbsp; 1 cup):</label>
+  <input type="text" name="new_quantity_input" id="new_quantity_input" class="form-control">
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<br>
+<hr>
+
+<form action="/delete_recipe/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete This Recipe</button>
+</form>
+<hr>
+
+<h4>Add another tag to this recipe</h4>
+<form action="/recipe_add_tag/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="tag_input">Enter a word (tag):</label>
+  <input type="text" name="tag_input" id="tag_input" class="form-control">
+  <br>
+  <button type="submit" class="btn btn-primary">Add Tag</button>
+</form>
+
+<h3>Tags:</h3>
+<ul>
+  <% @tags.each do |tag| %>
+  <li><%= tag.name %></li>
+  <% end %>
+</ul>
+
+<p><a href="/">Home</a></p>

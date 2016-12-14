@@ -1,0 +1,33 @@
+<h1>Brubaking Recipe Box</h1>
+<h3>Recipe List</h3>
+
+<% if @recipes.any? %>
+  <ul>
+    <% @recipes.each do |recipe| %>
+    <li><a href="/recipe/<%= recipe.id %>"><%= recipe.name %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no recipes yet!</p>
+<% end %>
+<hr>
+
+<h3>Add a Recipe:</h3>
+
+<form action="/recipe_add" method="post">
+  <div class="form-group">
+    <label for="recipe_name">Enter Recipe Name</label>
+    <input type="text" id="recipe_name" name="recipe_name" class="form-control">
+    <label for="instructions">Enter Instructions</label>
+    <input type="text" id="instructions" name="instructions" class="form-control">
+    <label for="rating">Enter Recipe Rating</label>
+    <input type="number" id="rating" name="rating" class="form-control">
+    <label for="tag_input">Create Tag</label>
+    <input type="text" id="tag_input" name="tag_input" class="form-control">
+    <br>
+    <button type="submit" class="btn btn-primary">Add Recipe</button>
+  </div>
+</form>
+
+
+<a href="/">Home</a>
