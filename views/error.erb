@@ -1,12 +1,27 @@
 <h3>Oops there were some errors:</h3>
+
+<% if !@new_ingredient.nil? %>
 <ul>
   <% @new_ingredient.errors().full_messages().each() do |message| %>
     <li><%= message %></li>
   <% end %>
 </ul>
 
+<% end %>
+<% if !@recipe.nil? %>
 <ul>
   <% @recipe.errors().full_messages().each() do |message| %>
     <li><%= message %></li>
   <% end %>
 </ul>
+<% end %>
+
+<% if !@new_tag.nil? %>
+<ul>
+  <% @new_tag.errors().full_messages().each() do |message| %>
+    <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<p><a href="/">Home</a></p>

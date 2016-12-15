@@ -38,9 +38,9 @@ end
 patch('/recipe_add_tag/:id') do
   @recipe = Recipe.find(params[:id].to_i)
   tag_input = params[:tag_input]
-  new_tag = Tag.create({:name => tag_input})
-  @recipe.tags.push(new_tag)
-  if new_tag.save
+  @new_tag = Tag.new({:name => tag_input})
+  if @new_tag.save
+    @recipe.tags.push(@new_tag)
     redirect("/recipe/#{@recipe.id}")
   else
     erb(:error)
