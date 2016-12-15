@@ -46,8 +46,22 @@
 <h3>Tags:</h3>
 <ul>
   <% @tags.each do |tag| %>
-  <li><%= tag.name %></li>
+  <li><a href='/tag/<%= tag.id %>/<%= @recipe.id %>'><%= tag.name %></a></li>
   <% end %>
 </ul>
+
+<h4>Add an existing tag to this recipe</h4>
+<form action="/recipe_add_existing_tag/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <select class="form-control" name="existing_tag_input">
+    <% @all_tags.each do |tag| %>
+    <option value="<%= tag.id %>"><%= tag.name %></option>
+    <% end %>
+  </select>
+  <br>
+  <button type="submit" class="btn btn-primary">Add Tag</button>
+</form>
+
+
 
 <p><a href="/">Home</a></p>

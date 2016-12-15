@@ -1,0 +1,13 @@
+<h1><%= @tag.name %></h1>
+
+<form action="/tag_edit/<%= @tag.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="tag_input">Update Tag:</label>
+  <input type="text" id="tag_input" name="tag_input">
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+<form action="/tag_delete/<%= @tag.id %>/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>

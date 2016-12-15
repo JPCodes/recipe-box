@@ -10,4 +10,9 @@ describe(Recipe) do
     end
   end
 
+  it("validates presence of description") do
+    recipe = Recipe.new({:name => ""})
+    expect(recipe.save()).to(eq(false))
+  end
+
 end
