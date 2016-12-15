@@ -30,11 +30,7 @@ end
 get('/recipe/:id') do
   @recipe = Recipe.find(params[:id].to_i)
   @tags = @recipe.tags
-  # @ingredients_for_recipe = @recipe.ingredients
-
-  # if !(@recipe.ingredients).nil?
-  #   @ingredients_recipes_entries = @recipe.ingredients
-  # end
+  @ingredients_for_recipe = @recipe.ingredients
   erb(:recipe)
 end
 
@@ -50,20 +46,20 @@ patch('/recipe_add_tag/:id') do
   end
 end
 
-# patch('/add_ingredient/:id') do
-#   @recipe = Recipe.find(params[:id].to_i)
-#   ingredient = params[:new_ingredient]
-#   new_quantity_input = params[:new_quantity_input]
-#   new_ingredient = Ingredient.create({:name => ingredient})
-#   test_quantity = IngredientsRecipes.create({:recipe_id => @recipe.id, :ingredient_id => new_ingredient.id, :quantity => new_quantity_input})
-#   # binding.pry
-#   @recipe.ingredients.push(new_ingredient)
-#   if test_quantity.save
-#     redirect("/recipe/#{@recipe.id}")
-#   else
-#     erb(:error)
-#   end
-# end
+patch('/add_ingredient/:id') do
+  @recipe = Recipe.find(params[:id].to_i)
+  ingredient = params[:new_ingredient]
+  new_quantity_input = params[:new_quantity_input]
+  new_ingredient = Ingredient.create({:name => ingredient})
+  test_quantity = Ingredients_recipe.create({:recipe_id => @recipe.id, :ingredient_id => new_ingredient.id, :quantity => new_quantity_input})
+  # binding.pry
+  @recipe.ingredients.push(new_ingredient)
+  if test_quantity.save
+    redirect("/recipe/#{@recipe.id}")
+  else
+    erb(:error)
+  end
+end
 
 delete('/delete_recipe/:id') do
   Recipe.find(params[:id].to_i).destroy

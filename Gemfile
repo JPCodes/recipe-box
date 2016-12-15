@@ -5,9 +5,9 @@ gem 'pg'
 gem 'sinatra'
 gem 'sinatra-contrib', :require => 'sinatra/reloader'
 gem 'sinatra-activerecord'
-gem 'pry'
 
 group(:test) do
+  gem 'pry'
   gem 'capybara'
   gem 'rspec'
   gem 'shoulda-matchers'
