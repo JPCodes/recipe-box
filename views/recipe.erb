@@ -8,6 +8,7 @@
 <% if !@ingredients_for_recipe.nil? %>
 <ul>
   <% @ingredients_for_recipe.each do |ingredient| %>
+  <% puts ingredient.inspect %>
     <li><%= ingredient.name %></li>
   <% end %>
 </ul>
@@ -16,7 +17,6 @@
 <% end %>
 
 <form action="/add_ingredient/<%= @recipe.id %>" method="post">
-  <input type="hidden" name="_method" value="patch">
   <label for="new_ingredient">Add a new ingredient to the database and assign it to this recipe:</label>
   <input type="text" name="new_ingredient" id="new_ingredient" class="form-control">
   <label for="new_quantity_input">Quanity (Ex: 3 tbsp; 1 cup):</label>
