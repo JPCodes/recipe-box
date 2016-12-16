@@ -32,6 +32,7 @@ get('/recipe/:id') do
   @tags = @recipe.tags
   @all_tags = Tag.all
   @ingredients_for_recipe = @recipe.ingredients
+  @all_ingredients = Ingredient.all
   # @quantitys = @recipe.ingredients( )
   erb(:recipe)
 end
@@ -124,4 +125,18 @@ delete('/ingredient/:id/:id2') do
   @recipe = Recipe.find(params[:id2].to_i)
   @recipe.ingredients.delete(@ingredient)
   redirect("/recipe/#{@recipe.id}")
+end
+
+patch('/recipe_add_existing_ingredient/:id') do
+  @recipe = Recipe.find(params[:id].to_i)
+  old_new_ingredient = Ingredient.find(params[:existing_ingredient_input].to_i)
+  # Again with the repeats
+  # @recipe.ingredients.push(old_new_ingredient)
+  quantity_input = params[:quantity_input]
+  test_quantity = Ingredients_recipe.create({:recipe_id => @recipe.id, :ingredient_id => old_new_ingredient.id, :quantity => quantity_input})
+  if !old_new_ingredient.nil?
+    redirect("/recipe/#{@recipe.id}")
+  else
+    erb(:error)
+  end
 end

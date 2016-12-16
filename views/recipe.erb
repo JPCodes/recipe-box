@@ -3,11 +3,14 @@
 <p>
   <%= @recipe.instructions %>
 </p>
+<p><a href="/recipe/<%= @recipe.id %>/edit">Update Instructions</a></p>
 
 <h4>Ingredient List:</h4>
 <% if @ingredients_for_recipe.any?  %>
 <ul>
   <% @ingredients_for_recipe.each do |ingredient| %>
+  <% puts "ingredient", ingredient.name %>
+  <% puts "ingredient quantity: ", Ingredients_recipe.all.inspect %>
     <li><a href="/ingredient/<%= ingredient.id %>/<%= @recipe.id %>"><%= ingredient.name %></a></li>
     <ul>
       <li><%= Ingredients_recipe.where(ingredient_id: ingredient.id()).first().quantity %></li>
@@ -21,15 +24,27 @@
 <form action="/add_ingredient/<%= @recipe.id %>" method="post">
   <label for="new_ingredient">Add a new ingredient to the database and assign it to this recipe:</label>
   <input type="text" name="new_ingredient" id="new_ingredient" class="form-control">
-  <label for="new_quantity_input">Quanity (Ex: 3 tbsp; 1 cup):</label>
+  <label for="new_quantity_input">Quantity (Ex: 3 tbsp; 1 cup):</label>
   <input type="text" name="new_quantity_input" id="new_quantity_input" class="form-control">
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <br>
-<p><a href="/recipe/<%= @recipe.id %>/edit">Update Instructions</a></p>
 
-<br>
+<h4>Add an existing ingredient to this recipe</h4>
+<form action="/recipe_add_existing_ingredient/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <select class="form-control" name="existing_ingredient_input">
+    <% @all_ingredients.each do |ingredient| %>
+    <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
+    <% end %>
+  </select>
+  <label for="quantity_input">Add a quantity</label>
+  <input type="text" name="quantity_input" id="quantity_input" class="form-control">
+  <br>
+  <button type="submit" class="btn btn-primary">Add Tag</button>
+</form>
+
 <hr>
 
 <form action="/delete_recipe/<%= @recipe.id %>" method="post">
