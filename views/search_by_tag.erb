@@ -1,0 +1,21 @@
+<h1>Recipes by Tag:</h1>
+
+<% if !@tags.nil? %>
+
+<ul>
+  <% @tags.each do |tag| %>
+  <li><%= tag.name %></li>
+  <ul>
+    <% tag.recipes.each do |recipe| %>
+    <li><%= recipe.name %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</ul>
+<% else %>
+<p>Add tags to recipes to see results.</p>
+<% end %>
+
+
+<p><a href="/">Home</a></p>
+<p><a href="/recipes">Back to Recipes</a></p>

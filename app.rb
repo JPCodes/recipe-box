@@ -140,3 +140,8 @@ patch('/recipe_add_existing_ingredient/:id') do
     erb(:error)
   end
 end
+
+get('/recipes/search_by_tag') do
+  @tags = Tag.all
+  erb(:search_by_tag)
+end
