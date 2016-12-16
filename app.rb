@@ -66,7 +66,7 @@ post('/add_ingredient/:id') do
   new_quantity_input = params[:new_quantity_input]
   @new_ingredient = Ingredient.create({:name => ingredient})
   test_quantity = Ingredients_recipe.create({:recipe_id => @recipe.id, :ingredient_id => @new_ingredient.id, :quantity => new_quantity_input})
-  if !@new_ingredient.nil?
+  if @new_ingredient.save
     # Caused repeats because we have a join table
     # @recipe.ingredients.push(@new_ingredient)
     redirect("/recipe/#{@recipe.id}")
