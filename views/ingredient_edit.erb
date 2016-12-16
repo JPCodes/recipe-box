@@ -1,0 +1,7 @@
+<h1>Manage Ingredient: <%= @ingredient.name %></h1>
+
+<form class="" action="/ingredient/<%= @ingredient.id %>/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+
+  <button type="submit" class="btn btn-danger">Remove this ingredient from the recipe?</button>
+</form>

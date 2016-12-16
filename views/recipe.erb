@@ -1,15 +1,17 @@
 <h1> <%= @recipe.name %> </h1>
-<h3>Instructions:</h3>
+<h4>Instructions:</h4>
 <p>
   <%= @recipe.instructions %>
 </p>
 
-
-<% if !@ingredients_for_recipe.nil? %>
+<h4>Ingredient List:</h4>
+<% if @ingredients_for_recipe.any?  %>
 <ul>
   <% @ingredients_for_recipe.each do |ingredient| %>
-  <% puts ingredient.inspect %>
-    <li><%= ingredient.name %></li>
+    <li><a href="/ingredient/<%= ingredient.id %>/<%= @recipe.id %>"><%= ingredient.name %></a></li>
+    <ul>
+      <li><%= Ingredients_recipe.where(ingredient_id: ingredient.id()).first().quantity %></li>
+    </ul>
   <% end %>
 </ul>
 <% else %>
@@ -24,6 +26,8 @@
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<br>
+<p><a href="/recipe/<%= @recipe.id %>/edit">Update Instructions</a></p>
 
 <br>
 <hr>
@@ -62,6 +66,7 @@
   <button type="submit" class="btn btn-primary">Add Tag</button>
 </form>
 
-
+<br>
 
 <p><a href="/">Home</a></p>
+<p><a href="/recipes">Back to Recipes</a></p>

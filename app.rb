@@ -32,6 +32,7 @@ get('/recipe/:id') do
   @tags = @recipe.tags
   @all_tags = Tag.all
   @ingredients_for_recipe = @recipe.ingredients
+  # @quantitys = @recipe.ingredients( )
   erb(:recipe)
 end
 
@@ -62,10 +63,11 @@ post('/add_ingredient/:id') do
   @recipe = Recipe.find(params[:id].to_i)
   ingredient = params[:new_ingredient]
   new_quantity_input = params[:new_quantity_input]
-  @new_ingredient = Ingredient.new({:name => ingredient})
+  @new_ingredient = Ingredient.create({:name => ingredient})
   test_quantity = Ingredients_recipe.create({:recipe_id => @recipe.id, :ingredient_id => @new_ingredient.id, :quantity => new_quantity_input})
-  if @new_ingredient.save
-    @recipe.ingredients.push(@new_ingredient)
+  if !@new_ingredient.nil?
+    # Caused repeats because we have a join table
+    # @recipe.ingredients.push(@new_ingredient)
     redirect("/recipe/#{@recipe.id}")
   else
     erb(:error)
@@ -95,5 +97,31 @@ delete('/tag_delete/:id/:id2') do
   current_tag = Tag.find(params[:id].to_i)
   # Delete removes the relationship between this tag and recipe
   @recipe.tags.delete(current_tag)
+  redirect("/recipe/#{@recipe.id}")
+end
+
+get('/recipe/:id/edit') do
+  @recipe = Recipe.find(params[:id].to_i)
+  erb(:edit_recipe)
+end
+
+patch('/edit_instructions/:id') do
+  new_instructions = params[:instructions]
+  @recipe = Recipe.find(params[:id].to_i)
+  @recipe.update({:instructions => new_instructions})
+  redirect("/recipe/#{@recipe.id}")
+  erb(:recipe)
+end
+
+get('/ingredient/:id/:id2') do
+  @ingredient = Ingredient.find(params[:id].to_i)
+  @recipe = Recipe.find(params[:id2].to_i)
+  erb(:ingredient_edit)
+end
+
+delete('/ingredient/:id/:id2') do
+  @ingredient = Ingredient.find(params[:id].to_i)
+  @recipe = Recipe.find(params[:id2].to_i)
+  @recipe.ingredients.delete(@ingredient)
   redirect("/recipe/#{@recipe.id}")
 end

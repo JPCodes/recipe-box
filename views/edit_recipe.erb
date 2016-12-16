@@ -1,0 +1,12 @@
+<h1>Edit Instructions</h1>
+
+<h4>Current Instructions:</h4>
+<p><%= @recipe.instructions %></p>
+
+<form action="/edit_instructions/<%= @recipe.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="instructions">Update Instructions</label>
+  <input type="text" id="instructions" name="instructions" class="form-control">
+  <br>
+  <button type="submit" class="btn btn-primary">Update Instructions</button>
+</form>
